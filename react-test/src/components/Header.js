@@ -14,7 +14,7 @@ const headerStyle = makeStyles({
     justifyContent: "center",
     fontSize: 40,
     textDecoration: "none",
-		fontWeight:'bold'
+    fontWeight: "bold",
   },
 });
 
@@ -28,9 +28,9 @@ function Header() {
       </Link>
 
       <div>
-        {/*<Routes>
-          <Route path={'Admin'} element={<Admin />} />
-        </Routes>*/}
+        <Routes>
+          <Route path={"Admin"} element={<Home  />} />
+        </Routes>
       </div>
     </div>
   );

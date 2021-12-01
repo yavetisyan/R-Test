@@ -1,14 +1,14 @@
 import React from "react";
+import withBorder from "../../../hoc/withBorder";
 
-const Contact = () =>{
+const Contact = (props) => {
+  return (
+    <div>
+      This is Cotact component
+      <h1>{props.dsa}</h1>
+      <h3>{!!props.isWithBorder + ""}</h3>
+    </div>
+  );
+};
 
-
-
-	return (
-		<div>
-				This is Cotact component
-		</div>
-	)
-}
-
-export default Contact
+export default withBorder(Contact);
