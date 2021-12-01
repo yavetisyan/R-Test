@@ -5,6 +5,7 @@ import Home, { HomeWithBorder } from "./NavbarContent/Home";
 import Contact from "./NavbarContent/Contact";
 import Admin from "./NavbarContent/Admin";
 import { makeStyles } from "@mui/styles";
+import ThemeContext from "../../context/ThemeContext";
 
 const navStyle = makeStyles({
   navLink: {
@@ -17,62 +18,90 @@ const navStyle = makeStyles({
 
 function Navbar() {
   const classes = navStyle();
-  const [theme, setTheme] = useState("Black");
-  return (
-    <div>
-      <div
-        style={{ display: "flex", margin: 20, justifyContent: "space-between" }}
-      >
-        <nav>
-          <Link to="Home" className={classes.navLink}>
-            Home
-          </Link>
-          <Link to="About" className={classes.navLink}>
-            About
-          </Link>
-          <Link to="/Contact" className={classes.navLink}>
-            Contact
-          </Link>
-        </nav>
-        <div>
-          <label for="Black">Black</label>
-          <input
-            type="radio"
-            name="language"
-            value="Black"
-            style={{ marginRight: 10 }}
-            checked={theme === "black"}
-            onChange={() => setTheme("black")}
-          />
-          <label for="Red">Red</label>
-          <input
-            type="radio"
-            name="language"
-            value="red"
-            style={{ marginRight: 10 }}
-            checked={theme === "red"}
-            onChange={() => setTheme("red")}
-          />
-        </div>
-      </div>
+  const [theme, setTheme] = useState("EN");
 
-      <Routes>
-        <Route index element={<Home aaa="oooooo" />} />
-        <Route
-          path="/Home"
-          element={<Home aaa="oooooo" borderColor="yellow" theme={theme} />}
-        />
-        <Route
-          path="/About"
-          element={<About asd="mi ban eli about" borderColor="blue" />}
-        />
-        <Route
-          path="/Contact"
-          element={<Contact dsa="mi ban eli contact" borderColor="red" />}
-        />
-        <Route path="/Admin" element={<Admin />} />
-      </Routes>
-    </div>
+  return (
+    <ThemeContext.Provider value={theme}>
+      <div>
+        <div
+          style={{
+            display: "flex",
+            margin: 20,
+            justifyContent: "space-between",
+          }}
+        >
+          {theme === "EN" ? (
+            <nav>
+              <Link to="Home" className={classes.navLink}>
+                Home
+              </Link>
+              <Link to="About" className={classes.navLink}>
+                About
+              </Link>
+              <Link to="/Contact" className={classes.navLink}>
+                Contact
+              </Link>
+            </nav>
+          ) : (
+            <nav>
+              <Link to="Home" className={classes.navLink}>
+                Дом
+              </Link>
+              <Link to="About" className={classes.navLink}>
+                Нас
+              </Link>
+              <Link to="/Contact" className={classes.navLink}>
+                Контакт
+              </Link>
+            </nav>
+          )}
+
+          <div>
+            <label>EN</label>
+            <input
+              type="radio"
+              name="language"
+              value="Eng"
+              style={{ marginRight: 10 }}
+              checked={theme === "EN"}
+              onChange={() => setTheme("EN")}
+            />
+            <label>RU</label>
+            <input
+              type="radio"
+              name="language"
+              value="red"
+              style={{ marginRight: 10 }}
+              checked={theme === "RU"}
+              onChange={() => setTheme("RU")}
+            />
+          </div>
+        </div>
+
+        <Routes>
+          <Route index element={<HomeWithBorder aaa="oooooo" />} />
+          <Route
+            path="/Home"
+            element={
+              <Home
+                borderColor="yellow"
+                homeComp="This is Home"
+                theme={theme}
+              />
+            }
+          />
+          <Route
+            path="/About"
+            element={<About borderColor="blue" asd="mi ban eli about" />}
+          />
+          <Route
+            path="/Contact"
+            element={<Contact borderColor="red" dsa="mi ban eli contact" />}
+          />
+          <Route path="/Admin" element={<Admin />} />
+        </Routes>
+      </div>
+    </ThemeContext.Provider>
   );
 }
 

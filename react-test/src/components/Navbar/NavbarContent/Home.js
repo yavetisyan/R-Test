@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
+import ThemeContext from "../../../context/ThemeContext";
 import withBorder from "../../../hoc/withBorder";
 
 const Home = (props) => {
+  const value = useContext(ThemeContext);
   return (
     <div>
       This is Home component
-      <h1
+      <h1X
         style={{
-          color: props.theme === "black" ? "black" : "red",
+          color: value === "EN" ? "black" : "red",
+          fontStyle: "italic",
         }}
       >
-        {props.aaa}
-      </h1>
+        {value === "EN" ? props.homeComp : "Это компонент дома"}
+      </h1X>
       <h3>{!!props.isWithBorder + ""}</h3>
     </div>
   );
