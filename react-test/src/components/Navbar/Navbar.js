@@ -19,11 +19,10 @@ const navStyle = makeStyles({
 function Navbar() {
   const classes = navStyle();
   const { theme, setTheme } = useContext(ThemeContext);
-  console.log(theme, setTheme);
-
+  
 
   return (
-    <div> 
+    <div>
       <div
         style={{
           display: "flex",
@@ -39,7 +38,7 @@ function Navbar() {
             <Link to="About" className={classes.navLink}>
               About
             </Link>
-            <Link to="/Contact" className={classes.navLink}>
+            <Link to="Contact" className={classes.navLink}>
               Contact
             </Link>
           </nav>
@@ -51,39 +50,20 @@ function Navbar() {
             <Link to="About" className={classes.navLink}>
               Нас
             </Link>
-            <Link to="/Contact" className={classes.navLink}>
+            <Link to="Contact" className={classes.navLink}>
               Контакт
             </Link>
           </nav>
         )}
-
-        <div>
-          <label>EN</label>
-          <input
-            type="radio"
-            name="language"
-            value="Eng"
-            style={{ marginRight: 10 }}
-            checked={theme === "EN"}
-            onChange={() => setTheme("EN")}
-          />
-          <label>RU</label>
-          <input
-            type="radio"
-            name="language"
-            value="red"
-            style={{ marginRight: 10 }}
-            checked={theme === "RU"}
-            onChange={() => setTheme("RU")}
-          />
-        </div>
       </div>
 
       <Routes>
         <Route index element={<Home homeComp="oooooo" />} />
         <Route
           path="/Home"
-          element={<HomeWithBorder borderColor="yellow" homeComp="This is Home" />}
+          element={
+            <HomeWithBorder borderColor="yellow" homeComp="This is Home" />
+          }
         />
         <Route
           path="/About"

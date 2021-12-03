@@ -6,16 +6,33 @@ const About = (props) => {
   const { theme } = useContext(ThemeContext);
   return (
     <div>
-      This is Home component
-      <h1
-        style={{
-          color: theme === "EN" ? "black" : "red",
-          fontStyle: "italic",
-        }}
-      >
-        {theme === "EN" ? props.aboutText : "Это компонент О Нас"}
-      </h1>
-      <h3>{!!props.isWithBorder + ""}</h3>
+      {theme === "EN" ? (
+        <div>
+          This is Home component
+          <h1
+            style={{
+              color: theme === "EN" ? "black" : "red",
+              fontStyle: "italic",
+            }}
+          >
+            {props.aboutText}
+          </h1>
+          <h3>{theme}</h3>
+        </div>
+      ) : (
+        <div>
+          Загаловок 'О Нас'
+          <h1
+            style={{
+              color: theme === "EN" ? "black" : "red",
+              fontStyle: "italic",
+            }}
+          >
+            Это компонент О Нас
+          </h1>
+          <h3>{theme}</h3>
+        </div>
+      )}
     </div>
   );
 };

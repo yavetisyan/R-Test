@@ -6,7 +6,9 @@ const Contact = (props) => {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <div>
+  <div>
+		{theme==='EN' ? (
+			<div>
       This is Cotact component
       <h1
         style={{
@@ -14,10 +16,23 @@ const Contact = (props) => {
           fontStyle: "italic",
         }}
       >
-        {theme === "EN" ? props.contactText : "Это страница Контакты"}
+        {props.contactText }
       </h1>
-      <h3>{!!props.isWithBorder + ""}</h3>
+      <h3>{theme}</h3>
     </div>
+		):(  <div>
+      Загаловок 'Кантакты'
+      <h1
+        style={{
+          color: theme === "EN" ? "black" : "red",
+          fontStyle: "italic",
+        }}
+      >
+        Это страница Контакты
+      </h1>
+      <h3>{theme}</h3>
+    </div>)}
+	</div>
   );
 };
 
