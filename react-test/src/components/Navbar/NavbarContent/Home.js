@@ -3,18 +3,18 @@ import ThemeContext from "../../../context/ThemeContext";
 import withBorder from "../../../hoc/withBorder";
 
 const Home = (props) => {
-  const value = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   return (
     <div>
       This is Home component
-      <h1X
+      <h1
         style={{
-          color: value === "EN" ? "black" : "red",
+          color: theme === "EN" ? "black" : "red",
           fontStyle: "italic",
         }}
       >
-        {value === "EN" ? props.homeComp : "Это компонент дома"}
-      </h1X>
+        {theme === "EN" ? "asdas" : "Это компонент дома"}
+      </h1>
       <h3>{!!props.isWithBorder + ""}</h3>
     </div>
   );
