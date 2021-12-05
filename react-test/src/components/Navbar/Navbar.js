@@ -5,7 +5,7 @@ import Home, { HomeWithBorder } from "./NavbarContent/Home";
 import Contact from "./NavbarContent/Contact";
 import Admin from "./NavbarContent/Admin";
 import { makeStyles } from "@mui/styles";
-import ThemeContext from "../../context/ThemeContext";
+import LanguageContext from "../../context/DispatchContext";
 
 const navStyle = makeStyles({
   navLink: {
@@ -18,8 +18,7 @@ const navStyle = makeStyles({
 
 function Navbar() {
   const classes = navStyle();
-  const { theme, setTheme } = useContext(ThemeContext);
-  
+  const  lng  = useContext(LanguageContext);
 
   return (
     <div>
@@ -30,7 +29,7 @@ function Navbar() {
           justifyContent: "space-between",
         }}
       >
-        {theme === "EN" ? (
+        {lng === "EN" ? (
           <nav>
             <Link to="Home" className={classes.navLink}>
               Home
@@ -60,22 +59,22 @@ function Navbar() {
       <Routes>
         <Route index element={<Home homeComp="oooooo" />} />
         <Route
-          path="/Home"
+          path="/Home/"
           element={
             <HomeWithBorder borderColor="yellow" homeComp="This is Home" />
           }
         />
         <Route
-          path="/About"
+          path="/About/"
           element={<About borderColor="blue" aboutText="mi ban eli about" />}
         />
         <Route
-          path="/Contact"
+          path="/Contact/"
           element={
             <Contact borderColor="red" contactText="mi ban eli contact" />
           }
         />
-        <Route path="/Admin" element={<Admin />} />
+        <Route path="/Admin/" element={<Admin />} />
       </Routes>
     </div>
   );

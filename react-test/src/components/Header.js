@@ -1,11 +1,14 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import Home from "./Navbar/NavbarContent/Home";
 import { Routes, Route } from "react-router-dom";
-import ThemeContext from "../context/ThemeContext";
+import LanguageContext from "../context/DispatchContext";
 import Switch from "@mui/material/Switch";
-import GlobalContext from "../context/GlobalContext";
+import ThemeContext from "../context/ThemeContext";
+
+import DispatchContext from "../context/DispatchContext";
+import { CHANGE_THEME, LNG_CHANGE } from "../constants/actionTypes";
 
 const headerStyle = makeStyles({
   header: {
@@ -41,76 +44,44 @@ const headerStyle = makeStyles({
   },
 });
 
-const initialState = { count: 0 };
-
-function reducer(state, action) {
-  console.log(action, "reducer called");
-  switch (action.type) {
-    case "increment":
-      return { count: state.count + 1 };
-    case "decrement":
-      return { count: state.count - 1 };
-    default:
-      throw new Error();
-  }
-}
-
-function Header() {
+function Header(props) {
   const classes = headerStyle();
-  const { theme, setTheme } = useContext(ThemeContext);
-  const { checked, setChecked } = useContext(GlobalContext);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const lng = useContext(LanguageContext);
+  const theme = useContext(ThemeContext);
+  const dispatch = useContext(DispatchContext);
 
-  const handleChange = (event) => {
-    setChecked(event.target.checked ? "dark" : "light");
+  const handleChange = (e) => {
+    props.dispatch({ type: CHANGE_THEME });
+    //dispatch({ type: CHANGE_THEME });
+  };
+
+  const handleChangeLang = (e) => {
+    dispatch({ type: LNG_CHANGE, payload: e.target.checked ? "RU" : "EN" });
   };
   return (
     <div>
       <div className={classes.header__top}>
         <div>
-          <label>EN</label>
-          <input
-            type="radio"
-            name="language"
-            value="Eng"
-            style={{ marginRight: 10 }}
-            checked={theme === "EN"}
-            onChange={() => setTheme("EN")}
-          />
-          <label>RU</label>
-          <input
-            type="radio"
-            name="language"
-            value="red"
-            style={{ marginRight: 10 }}
-            checked={theme === "RU"}
-            onChange={() => setTheme("RU")}
-          />
+          ENG
+          {<Switch checked={lng === "RU"} onChange={handleChangeLang} />}
+          RU
         </div>
         <div>
           Light
-          {
-            <Switch
-              checked={checked === "dark"}
-              onChange={handleChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-          }
+          {<Switch checked={theme === "dark"} onChange={handleChange} />}
           Dark
         </div>
       </div>
       <div>
         <div
-          className={
-            checked === "light" ? classes.bgColor_D : classes.bgColor_L
-          }
+          className={theme === "light" ? classes.bgColor_D : classes.bgColor_L}
         >
-          {theme === "EN" ? (
+          {lng === "EN" ? (
             <div className={classes.header}>
               <Link
                 to={"/"}
                 className={
-                  checked === "light" ? classes.bgColor_D : classes.bgColor_L
+                  theme === "light" ? classes.bgColor_D : classes.bgColor_L
                 }
               >
                 Header
@@ -121,7 +92,7 @@ function Header() {
               <Link
                 to={"/"}
                 className={
-                  checked === "light" ? classes.bgColor_D : classes.bgColor_L
+                  theme === "light" ? classes.bgColor_D : classes.bgColor_L
                 }
               >
                 Загалвок
@@ -135,12 +106,6 @@ function Header() {
             <Route path={"Admin"} element={<Home />} />
           </Routes>
         </div>
-      </div>
-
-      <div>
-        Count: {state.count}
-        <button onClick={() => dispatch({ type: "decrement" })}>-</button>
-        <button onClick={() => dispatch({ type: "increment" })}>+</button>
       </div>
     </div>
   );
